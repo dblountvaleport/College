@@ -1,5 +1,21 @@
 <?php
 
+function change_password($user_id, $password) {
+    $user_id = (int)$user_id;
+    $password = md5($password);
+    $conn = mysqli_connect('localhost', 'root', '', 'photo_friends');
+
+    $sql = "UPDATE users SET password = '$password' WHERE user_id = $user_id";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Password successfully changed.";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+    $conn->close();
+}
+
 function register_user($register_data) {
     array_walk($register_data, 'array_sanitize');
     $register_data['password'] = md5($register_data['password']);

@@ -1,6 +1,6 @@
 <?php
 session_start();
-//error_reporting(0);
+error_reporting(0);
 
 require 'database/connect.php';
 require 'functions/general.php';
@@ -16,6 +16,8 @@ if (logged_in() === true) {
         exit();
     }
 }
+
+$user_data['password'];
 
 $errors = array();
 ?>
