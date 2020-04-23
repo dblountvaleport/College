@@ -1,5 +1,26 @@
 <?php
 
+function update_user($update_data) {
+    global $session_user_id;
+    $update = array();
+    array_walk($update_data, 'array_sanitize');
+    $conn = mysqli_connect('localhost', 'root', '', 'photo_friends');
+
+    foreach($update_data as $field=>$data) {
+        $update[] = '`' . $field . '` = \'' . $data . '\'';
+    }
+
+    $sql = "UPDATE users SET " . implode(', ', $update) . " WHERE user_id = $session_user_id";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "User information successfully updated";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+    $conn->close();
+}
+
 function change_password($user_id, $password) {
     $user_id = (int)$user_id;
     $password = md5($password);
