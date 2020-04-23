@@ -1,5 +1,6 @@
 <?php
 include 'core/init.php';
+logged_in_redirect();
 
 if (empty($_POST) === false) {
     $username = $_POST['username'];
@@ -9,8 +10,6 @@ if (empty($_POST) === false) {
         $errors[] = 'You are required to enter a username and password.';
     } else if (user_exists($username) === false) {
         $errors[] = 'We can\'t find that supplied username. Have you registered?';
-    } else if (user_active($username) === false) {
-        $errors[] = 'You haven\'t activated you account!';
     } else {
 
         if (strlen($password) > 32) {

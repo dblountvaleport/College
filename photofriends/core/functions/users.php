@@ -1,5 +1,21 @@
 <?php
 
+function change_password($user_id, $password) {
+    $user_id = (int)$user_id;
+    $password = md5($password);
+    $conn = mysqli_connect('localhost', 'root', '', 'photo_friends');
+
+    $sql = "UPDATE users SET password = '$password' WHERE user_id = $user_id";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Password successfully changed.";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+    $conn->close();
+}
+
 function register_user($register_data) {
     array_walk($register_data, 'array_sanitize');
     $register_data['password'] = md5($register_data['password']);
@@ -21,7 +37,7 @@ function register_user($register_data) {
 
 function user_count() {
     $conn = mysqli_connect('localhost', 'root', '', 'photo_friends');
-    $query = mysqli_query($conn,"SELECT COUNT(user_id) AS mycount FROM users WHERE active = 1");
+    $query = mysqli_query($conn,"SELECT COUNT(user_id) AS mycount FROM users");
     $res = mysqli_fetch_object($query);
     $count = $res->mycount;
     return $count;
@@ -78,19 +94,6 @@ function email_exists($email) {
     if ($count == 1)
     {
         return true;
-    }
-}
-
-function user_active($username) {
-    $username = sanitize($username);
-    $conn = mysqli_connect('localhost', 'root', '', 'photo_friends');
-    $query = mysqli_query($conn,"SELECT COUNT(user_id) AS mycount FROM users WHERE username = '$username' AND active = 1");
-    $res = mysqli_fetch_object($query);
-    $count = $res->mycount;
-    if ($count == 1) {
-        return true;
-    } else {
-        return false;
     }
 }
 
