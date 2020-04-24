@@ -65,6 +65,22 @@ function user_count() {
     return $count;
 }
 
+function admin_count() {
+    $conn = mysqli_connect('localhost', 'root', '', 'photo_friends');
+    $query = mysqli_query($conn,"SELECT COUNT(user_id) AS mycount FROM users WHERE type = 1");
+    $res = mysqli_fetch_object($query);
+    $count = $res->mycount;
+    return $count;
+}
+
+function moderator_count() {
+    $conn = mysqli_connect('localhost', 'root', '', 'photo_friends');
+    $query = mysqli_query($conn,"SELECT COUNT(user_id) AS mycount FROM users WHERE type = 2");
+    $res = mysqli_fetch_object($query);
+    $count = $res->mycount;
+    return $count;
+}
+
 function has_access($user_id, $type) {
     $user_id = (int)$user_id;
     $type = (int)$type;
