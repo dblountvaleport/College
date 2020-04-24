@@ -30,11 +30,14 @@ global $session_user_id;
 }
 
 function array_sanitize(&$item) {
-    $item = htmlentities(strip_tags(/*mysql_real_escape_string*/($item)));
+    $conn = mysqli_connect('localhost', 'root', '', 'photo_friends') or die($conn);
+    $item = htmlentities(strip_tags(mysqli_real_escape_string($conn, $item)));
 }
 
 function sanitize($data) {
-    return htmlentities(strip_tags(/*mysql_real_escape_string*/($data)));
+    $conn = mysqli_connect('localhost', 'root', '', 'photo_friends') or die($conn);
+    $item = htmlentities(strip_tags(mysqli_real_escape_string($conn, $data)));
+    return $item;
 }
 
 function output_errors($errors) {

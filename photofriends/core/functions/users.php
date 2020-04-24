@@ -1,5 +1,21 @@
 <?php
 
+function change_profile_image($user_id, $file_temp, $file_extn) {
+    $file_path = 'images/profile/' . substr(md5(time()), 0, 10) . '.' . $file_extn;
+    move_uploaded_file($file_temp, $file_path);
+
+    global $session_user_id;
+    $conn = mysqli_connect('localhost', 'root', '', 'photo_friends');
+    $sql = ("UPDATE users SET profile = '" . mysqli_real_escape_string($conn, $file_path) . "' WHERE user_id = " . (int)$session_user_id);
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Profile image successfully set";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+    $conn->close();
+}
 
 function update_user($update_data) {
     global $session_user_id;
@@ -111,7 +127,8 @@ function user_data($user_id) {
 
         $fields = '`' . implode('`, `', $func_get_args) . '`';
         $conn = mysqli_connect('localhost', 'root', '', 'photo_friends');
-        $data = mysqli_fetch_assoc(mysqli_query($conn,"SELECT $fields FROM users WHERE user_id = $user_id"));
+        $query = mysqli_query($conn,"SELECT $fields FROM `users` WHERE `user_id` = $user_id");
+        $data = mysqli_fetch_assoc($query);
 
         return $data;
     }

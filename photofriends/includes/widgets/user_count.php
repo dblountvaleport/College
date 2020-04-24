@@ -10,7 +10,7 @@
         We currently have <?php echo $user_count; ?> registered user<?php echo $suffix1; ?>.
     </div>
     <br>
-    <h2>Admins</h2>
+    <h2>Staff</h2>
     <div class="inner">
         <?php
         //Check the number of admins & moderators.

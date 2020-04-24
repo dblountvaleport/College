@@ -59,19 +59,19 @@ body {
 
 #container, footer {
     background:#fff;
-    width: 1080px;
+    width: 75%;
     margin: 0 auto;
     padding: 20px;
 }
 
 header {
-    width: 940px;
+    width: 75%;
     padding: 10px;
     margin: 0 auto 10px auto;
 }
 
 #container {
-    min-height: 500px;
+    min-height: 650px;
     border-radius: 5px 5px 0 0;
 }
 
@@ -125,6 +125,16 @@ aside {
     float:right;
     border-left: 1px dashed #aaa;
     padding-left: 15px;
+}
+
+.profile {
+    background:#f9f9f9;
+    border: 1px dashed #ccc;
+    padding: 5px;
+}
+
+.profile img {
+    width: 100%;
 }
 
 /* Login */
