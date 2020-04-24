@@ -65,16 +65,20 @@ function user_count() {
     return $count;
 }
 
-function is_admin($user_id) {
+function has_access($user_id, $type) {
     $user_id = (int)$user_id;
+    $type = (int)$type;
     $conn = mysqli_connect('localhost', 'root', '', 'photo_friends');
-    $query = mysqli_query($conn,"SELECT COUNT(user_id) as mycount FROM users WHERE user_id = $user_id AND type = 1");
+    $query = mysqli_query($conn,"SELECT COUNT(user_id) as mycount FROM users WHERE user_id = $user_id AND type = $type");
     $res = mysqli_fetch_object($query);
     $result = $res->mycount;
     if ($result === '0') {
         return false;
     }
     if ($result === '1') {
+        return true;
+    }
+    if ($result === '2') {
         return true;
     }
 }

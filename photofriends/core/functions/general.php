@@ -15,7 +15,15 @@ function protect_page() {
 
 function admin_protect() {
 global $session_user_id;
-    if (is_admin($session_user_id) === false) {
+    if (has_access($session_user_id, 1) === false) {
+        header('Location: index.php');
+        exit();
+    }
+}
+
+function moderator_protect() {
+global $session_user_id;
+    if (has_access($session_user_id, 2) === false) {
         header('Location: index.php');
         exit();
     }
