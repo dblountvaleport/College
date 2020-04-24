@@ -14,6 +14,16 @@
             <li>
                 <a href="settings.php">Settings</a>
             </li>
+            <?php
+                global $session_user_id;
+                if (is_admin($session_user_id) === true) {
+                ?>
+                    <li>
+                        <a href="admin.php">Admin</a>
+                    </li>
+                <?php
+                }
+            ?>
         </ul
     </div>
 </div>

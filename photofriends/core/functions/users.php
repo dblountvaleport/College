@@ -1,5 +1,6 @@
 <?php
 
+
 function update_user($update_data) {
     global $session_user_id;
     $update = array();
@@ -62,6 +63,20 @@ function user_count() {
     $res = mysqli_fetch_object($query);
     $count = $res->mycount;
     return $count;
+}
+
+function is_admin($user_id) {
+    $user_id = (int)$user_id;
+    $conn = mysqli_connect('localhost', 'root', '', 'photo_friends');
+    $query = mysqli_query($conn,"SELECT COUNT(user_id) as mycount FROM users WHERE user_id = $user_id AND type = 1");
+    $res = mysqli_fetch_object($query);
+    $result = $res->mycount;
+    if ($result === '0') {
+        return false;
+    }
+    if ($result === '1') {
+        return true;
+    }
 }
 
 function user_data($user_id) {
