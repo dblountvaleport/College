@@ -1,5 +1,23 @@
 <?php
 
+function user_upload_image($user_id, $file_temp, $file_extn, $description) {
+    $name = substr(md5(time()), 0, 10) . '.' . $file_extn;
+    $file_path = 'images/images/' . $name;
+
+    global $session_user_id;
+    $conn = mysqli_connect('localhost', 'root', '', 'photo_friends');
+    $sql = ("INSERT INTO images (`user_id`, `image_name`, `image_location`, `description`) VALUES (" . (int)$session_user_id . ", '" . $name . "', '" . $file_path . "', '" . $description . "')");
+
+    if ($conn->query($sql) === TRUE) {
+        move_uploaded_file($file_temp, $file_path);
+        echo "Image successfully uploaded";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+    $conn->close();
+}
+
 function change_profile_image($user_id, $file_temp, $file_extn) {
     $file_path = 'images/profile/' . substr(md5(time()), 0, 10) . '.' . $file_extn;
     move_uploaded_file($file_temp, $file_path);

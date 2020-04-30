@@ -33,7 +33,9 @@ if (isset($_GET['success']) && empty($_GET['success'])) {
         $update_data = array(
             'first_name'    => $_POST['first_name'],
             'last_name'     => $_POST['last_name'],
-            'email'         => $_POST['email']
+            'email'         => $_POST['email'],
+            'title'         => $_POST['title'],
+            'description'   => $_POST['description']
         );
 
         update_user($update_data);
@@ -59,6 +61,23 @@ if (isset($_GET['success']) && empty($_GET['success'])) {
                 <li>
                     Email*:<br>
                     <input type="text" name="email" value="<?php echo $user_data['email']; ?>">
+                </li>
+                <li>
+                    Title:<br>
+                    <input type="text" name="title" value="<?php echo $user_data['title']; ?>">
+                </li>
+                <li>
+                    Description:<br>
+                    <?php
+                        $length = strlen($user_data['description']);
+                        $description = $user_data['description'];
+                        if ($length > 0){
+                            $text = $description;
+                        } else {
+                            $text = '';
+                        }
+                    ?>
+                    <textarea name="description" cols="40" rows="4" placeholder="Say something about yourself..."><?php echo $text;?></textarea>
                 </li>
                 <li>
                     <input type="submit" value="Apply Changes">

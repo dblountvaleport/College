@@ -12,12 +12,23 @@
                     $file_name = $_FILES['profile']['name'];
                     $file_extn_temp = explode('.', $file_name);
                     $file_extn = strtolower(end($file_extn_temp));
+                    $file_size = $_FILES['profile']['size'];
+                    $file_error = $_FILES['profile']['error'];
                     $file_temp = $_FILES['profile']['tmp_name'];
 
                     if (in_array($file_extn, $allowed) === true) {
-                        change_profile_image($session_user_id, $file_temp, $file_extn);
-                        header('Location: index.php');
-                        exit();
+                        if ($file_error === 0) {
+                            if ($file_size < 10000000) {
+                                change_profile_image($session_user_id, $file_temp, $file_extn);
+                                header('Location: index.php');
+                                exit();
+                            } else {
+                                echo 'Your file is too large!';
+                            }
+                        } else {
+                            echo 'There was an error uploading your image!';
+                        }
+
                     } else {
                         echo 'Incorrect file type.';
                         ?>
@@ -42,6 +53,9 @@
         <ul>
             <li>
                 <a href="logout.php">Logout</a>
+            </li>
+            <li>
+                <a href="map.php">Map</a>
             </li>
             <li>
                 <a href="<?php echo $user_data['username']; ?>">Profile</a>

@@ -1,0 +1,10 @@
+Add rating system to each image.
+Add option to owner of an image to edit the description or delete the image.
+Add option to admins or moderators to edit the description or delete n image.
+Scrape geo-location info from image.
+Add geo locations to image description.
+Add map component to display_map.php.
+Add map pins to map component.
+Assign each images geo location information to a map pin.
+On click of map pin display the images: description, geo location, owner and rating.
+On click of 'owner' navigate user to the owners profile page.

@@ -8,6 +8,17 @@
         $suffix1 = ($user_count != 1) ? 's' : '';
         ?>
         We currently have <?php echo $user_count; ?> registered user<?php echo $suffix1; ?>.
+        <br><br>
+        <?php
+        if (logged_in() === true) {
+            $conn = mysqli_connect('localhost', 'root', '', 'photo_friends');
+            $sql = "SELECT * FROM users";
+            $result = mysqli_query($conn, $sql);
+            while ($row = mysqli_fetch_array($result)) {
+                echo "<a href='http://localhost/photofriends/" . $row['username'] . "'>" . $row['username'] . "</a><a>, </a>";
+            }
+        }
+        ?>
     </div>
     <br>
     <h2>Staff</h2>
@@ -20,8 +31,6 @@
         $suffix2 = ($admin_count != 1) ? 's' : '';
         $suffix3 = ($moderator_count != 1) ? 's' : '';
         ?>
-        We currently have <?php echo $admin_count; ?> Admin<?php echo $suffix2; ?>.
-        <br>
-        We currently have <?php echo $moderator_count; ?> Moderator<?php echo $suffix3; ?>.
+        We have <?php echo $admin_count; ?> Admin<?php echo $suffix2; ?> & <?php echo $moderator_count; ?> Moderator<?php echo $suffix3; ?>.
     </div>
 </div>
