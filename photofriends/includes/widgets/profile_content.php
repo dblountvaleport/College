@@ -25,6 +25,7 @@
 <div>
     <h2><?php echo $profile_data['first_name']; $text = "'s"; echo $text;?> Images</h2>
     <?php
+    global $session_user_id;
     $user_id = user_id_from_username($username);
     $conn = mysqli_connect('localhost', 'root', '', 'photo_friends');
     $sql = "SELECT * FROM images WHERE user_id = $user_id";
@@ -35,8 +36,30 @@
             echo "<img id='img' src='" . $row['image_location'] . "'>";
             echo "<h3>Description</h3>";
             echo "<p>" . $row['description'] . "</p>";
+            $img_id = $row['id'];
+            if (isset($_POST['delete'])) {
+                delete_image($img_id);
+                header('Location: index.php?success');
+                exit();
+            }
+            if (has_access($session_user_id, 0) === false) {
+                ?>
+                    <form action="" method="post">
+                        <input type="submit" name="delete" value="delete">
+                    </form
+                <?php
+            } else {
+                if ($user_id === $session_user_id) {
+                    ?>
+                        <form action="" method="post">
+                            <input type="submit" name="delete" value="delete">
+                        </form
+                    <?php
+                }
+            }
         echo "</div>";
     }
+    echo "</div>";
     echo "</div>";
     ?>
 </div>

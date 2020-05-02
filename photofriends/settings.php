@@ -30,12 +30,21 @@ if (isset($_GET['success']) && empty($_GET['success'])) {
 } else {
     // update user details
     if (empty($_POST) === false && empty($errors) === true) {
+
+        $privacy = "0";
+        if ($value === "private") {
+            $privacy = "1";
+        } else {
+            $privacy = "0";
+        }
+
         $update_data = array(
             'first_name'    => $_POST['first_name'],
             'last_name'     => $_POST['last_name'],
             'email'         => $_POST['email'],
             'title'         => $_POST['title'],
-            'description'   => $_POST['description']
+            'description'   => $_POST['description'],
+            'privacy'       => $privacy
         );
 
         update_user($update_data);
@@ -78,6 +87,18 @@ if (isset($_GET['success']) && empty($_GET['success'])) {
                         }
                     ?>
                     <textarea name="description" cols="40" rows="4" placeholder="Say something about yourself..."><?php echo $text;?></textarea>
+                </li>
+                <li>
+                    Privacy:<br>
+                    <?php
+                        $privacy_state = $user_data['privacy'];
+                    ?>
+                    <input type="radio" name="privacy"
+                    <?php if ($privacy_state === "0") echo "checked"; $value = 0;?>
+                    value="public">Public
+                    <input type="radio" name="privacy"
+                    <?php if ($privacy_state === "1") echo "checked"; $value = 1;?>
+                    value="private">Private
                 </li>
                 <li>
                     <input type="submit" value="Apply Changes">

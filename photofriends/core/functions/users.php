@@ -1,5 +1,18 @@
 <?php
 
+function delete_image($img_id) {
+    $conn = mysqli_connect('localhost', 'root', '', 'photo_friends');
+    $sql = ("DELETE FROM images WHERE id = " . (int)$img_id);
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Image successfully deleted";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+    $conn->close();
+}
+
 function user_upload_image($user_id, $file_temp, $file_extn, $description) {
     $name = substr(md5(time()), 0, 10) . '.' . $file_extn;
     $file_path = 'images/images/' . $name;
