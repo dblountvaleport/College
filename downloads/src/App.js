@@ -80,7 +80,18 @@ class App extends React.Component {
 
         return Instruments.map((Instrument, index) => (
             <option value={Instrument.instrumentID}>{Instrument.instrumentName}</option>
+        ));
+    };
 
+    getDownloads = (Instruments) => {
+        if (!Instruments.length) return null;
+
+        return Instruments.map((Instrument, index) => (   
+            <div>     
+                <p></p>
+                <p id="instDownloads">The File that you require...</p>
+                <a href={Instrument.URL} id="previousVersions">{Instrument.instrumentName}.exe</a>
+            </div>    
         ));
     };
 
@@ -134,23 +145,34 @@ class App extends React.Component {
         <section className="layout downloads">
             <div className="row">
                 <div className="column one-whole">
-                    <p>Select the instrument you want to search for:</p>
-                      
-
-                    <select className="simple-select" name="Instrument" id="Instrument" value={this.state.instrument} onChange={this.handleChange}>                        
-                        {this.displayInstruments(this.state.Instruments)}    
-                    </select>
+                    <form>
+                        <p>Select the instrument you want to search for:</p>
+                        <select 
+                                className="simple-select" 
+                                name="Instrument" 
+                                id="Instrument" 
+                                value={this.state.instrument} 
+                                onChange={this.handleChange}
+                            >                        
+                            {this.displayInstruments(this.state.Instruments)}    
+                        </select>
+                        <p></p>
+                        
+                        <div className="form-row">                            
+                            <input type="submit" className="button" value="Select Software Package"/>
+                        </div>
+                    </form>    
 
                     
-                    <p id="instDownloads"></p>
-                    <p id="previousVersions"></p>
+                    <p></p>
+                    <p id="instDownloads">The File that you require...</p>
+                    <a href="https://valeport.download/uploads/0/70/DataLog_X2_1_1_0_1316.exe" id="previousVersions">DataLog.exe</a>
                 </div>
             </div>
         </section>
       </body>
 
         <footer className="footer">
-    
         <section className="section">
             <div className="row">
                 <div className="column one-whole center">
@@ -227,11 +249,8 @@ class App extends React.Component {
                             </div>  
                         </div>
 
-                        <div className="form-row">
-                            <button type="submit" className="button" onClick={this.submit}>
-                                Sign me up!
-                                <svg className="icon"></svg>
-                            </button>
+                        <div className="form-row">                            
+                            <input type="submit" className="button" value="Sign me up!" onClick={this.submit}/>
                         </div>
                         
                     </form>

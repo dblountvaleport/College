@@ -42,6 +42,7 @@ router.post('/save', (req, res) => {
 
     newtheUsers.save((error) => {
              if (error) {
+                 alert('Error, missing data: ' + error);
                  console.log('Error, something happened: ' + error);
              } else {
                  console.log('Data has been saved!');

@@ -11,6 +11,7 @@ const reqString = {
 const instrumentSchema = mongoose.Schema({
     instrumentID: reqString,
     instrumentName: reqString,
+    URL: String,
 })
 
 //Model
